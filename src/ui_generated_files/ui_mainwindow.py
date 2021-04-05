@@ -92,6 +92,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.doubleSpinBox_min_wait = QDoubleSpinBox(self.groupBox_cfg_time)
         self.doubleSpinBox_min_wait.setObjectName(u"doubleSpinBox_min_wait")
+        self.doubleSpinBox_min_wait.setMinimum(7.000000000000000)
 
         self.horizontalLayout_6.addWidget(self.doubleSpinBox_min_wait)
 

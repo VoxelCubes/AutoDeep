@@ -110,7 +110,11 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_min_wait"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_min_wait">
+             <property name="minimum">
+              <double>7.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_reset_min_wait">
