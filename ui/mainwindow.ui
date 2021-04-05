@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1050</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Auto Deepl</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,1,0,0">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_config">
+      <item>
+       <widget class="QGroupBox" name="groupBox_cfg_lang">
+        <property name="title">
+         <string>Language</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Translate to</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="CComboBox" name="comboBox"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_use_glossary">
+             <property name="text">
+              <string>Use a glossary</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="pushButton_get_glossary">
+             <property name="text">
+              <string>Open</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_glossary">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+             <italic>true</italic>
+            </font>
+           </property>
+           <property name="text">
+            <string>&lt;No glossary selected&gt;</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_cfg_time">
+        <property name="title">
+         <string>Timing</string>
+        </property>
+        <layout class="QFormLayout" name="formLayout_2">
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Min. wait time per batch (seconds)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_min_wait"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_reset_min_wait">
+             <property name="toolTip">
+              <string>Restore default</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../icons/resources.qrc">
+               <normaloff>:/general/arrow-circle.png</normaloff>:/general/arrow-circle.png</iconset>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Wait time per character (milli seconds)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_char_wait"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_reset_char_wait">
+             <property name="toolTip">
+              <string>Restore default</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../icons/resources.qrc">
+               <normaloff>:/general/arrow-circle.png</normaloff>:/general/arrow-circle.png</iconset>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Wait time between batches (seconds)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_batch_time"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_reset_batch_time">
+             <property name="toolTip">
+              <string>Restore default</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../icons/resources.qrc">
+               <normaloff>:/general/arrow-circle.png</normaloff>:/general/arrow-circle.png</iconset>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_cfg_batches">
+        <property name="title">
+         <string>Batches</string>
+        </property>
+        <layout class="QFormLayout" name="formLayout_3">
+         <property name="rowWrapPolicy">
+          <enum>QFormLayout::WrapLongRows</enum>
+         </property>
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Max. number of characters per batch</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QSpinBox" name="spinBox_max_chars">
+             <property name="minimum">
+              <number>10</number>
+             </property>
+             <property name="maximum">
+              <number>99999</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_reset_max_chars">
+             <property name="toolTip">
+              <string>Restore default</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../icons/resources.qrc">
+               <normaloff>:/general/arrow-circle.png</normaloff>:/general/arrow-circle.png</iconset>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Max. number of batches per session</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QSpinBox" name="spinBox_max_batches">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_reset_max_batches">
+             <property name="toolTip">
+              <string>Restore default</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../icons/resources.qrc">
+               <normaloff>:/general/arrow-circle.png</normaloff>:/general/arrow-circle.png</iconset>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_files" stretch="0,0,0,0,0">
+      <item>
+       <widget class="QPushButton" name="pushButton_new_file">
+        <property name="text">
+         <string>Add File</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../icons/resources.qrc">
+          <normaloff>:/general/page_white_text_plus.png</normaloff>:/general/page_white_text_plus.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_save_file_glossary">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Save File With Glossary</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_cfg_save">
+        <property name="text">
+         <string>Save Configuration</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_cfg_load">
+        <property name="text">
+         <string>Load Configuration</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="CTableWidget" name="tableWidget">
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="textElideMode">
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>File</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Output</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Status</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0,0,0">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="pushButton_refresh_estimate">
+          <property name="toolTip">
+           <string>Restore default</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="icon">
+           <iconset resource="../icons/resources.qrc">
+            <normaloff>:/general/arrow-circle-double-135.png</normaloff>:/general/arrow-circle-double-135.png</iconset>
+          </property>
+          <property name="flat">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Time Estimate:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_time">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_clear">
+        <property name="text">
+         <string>Clear Selection</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_abort">
+        <property name="text">
+         <string>Abort</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../icons/resources.qrc">
+          <normaloff>:/general/cancel.png</normaloff>:/general/cancel.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_start">
+        <property name="text">
+         <string>Start</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../icons/resources.qrc">
+          <normaloff>:/general/accept.png</normaloff>:/general/accept.png</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>src.CustomQ.CTableWidget</header>
+  </customwidget>
+  <customwidget>
+   <class>CComboBox</class>
+   <extends>QComboBox</extends>
+   <header>src.CustomQ.CComboBox</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../icons/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
