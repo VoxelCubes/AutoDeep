@@ -1,4 +1,5 @@
 import os
+# QT plugins are copied from the site-packages folder into .\qtplugins\ for the pyinstaller build.
 os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = "qtplugins"
 
 import sys

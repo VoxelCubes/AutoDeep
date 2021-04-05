@@ -83,6 +83,15 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         return button
 
 
+    def get_cookie_button_cta(self):
+        """
+        Remove the cookie banner to prevent it from interfering.
+        """
+        button_css = "button.dl_cookieBanner--cta-buttonClose"
+        button = self.driver.find_element_by_css_selector(button_css)
+        return button
+
+
     def get_translation(self, sleep_before_click_to_clipboard=2):
         """
         Click on the get to clipboard button of deepL and then return the results.
@@ -101,7 +110,7 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
 
     def run_translation(self, corpus_batch, destination_language,
                         time_to_translate_min, time_to_translate_char,
-                        time_batch_rest, session_index, total_sessions):
+                        time_batch_rest, session_index, total_sessions, close_banners):
         """
         Primary function
         @param corpus_batch: list
@@ -126,20 +135,28 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
             self.set_url()
             self.load_url()
 
-        # Get rid of banner. Attempt to remove the gdpr banner, then the simple banner.
-        # Carry on if both fail.
-        try:
-            button = self.get_cookie_button_gdpr()
-            button.click()
-        except Exception:
+        if close_banners:
+            # Get rid of banner. Attempt to remove the gdpr banner, then the simple banner.
+            # Carry on if both fail.
+            try:
+                button = self.get_cookie_button_gdpr()
+                button.click()
+            except:
+                pass
+
             try:
                 button = self.get_cookie_button()
                 button.click()
-            except Exception:
+            except:
                 pass
 
-        self.sleep(1)
+            try:
+                button = self.get_cookie_button_cta()
+                button.click()
+            except:
+                pass
 
+            self.sleep(1)
 
         # Do translation
         try:

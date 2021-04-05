@@ -21,6 +21,7 @@ class Worker(Qc.QObject):
         Qc.QObject.__init__(self)
         self.file = file
         self.language = config["translate_to"]
+        self.close_banners = config["close_banners"]
         self.min_wait = config["deepl_min_wait_time_s"]
         self.char_time = config["deepl_wait_time_per_char_ms"]
         self.batch_time = config["deepl_wait_between_batches_s"]
@@ -83,6 +84,7 @@ class Worker(Qc.QObject):
                                            time_to_translate_char=self.char_time,
                                            time_batch_rest=self.batch_time,
                                            session_index=session_index,
+                                           close_banners=self.close_banners,
                                            total_sessions=len(in_sessions))
             except Exception as e:
                 if not self.halted:

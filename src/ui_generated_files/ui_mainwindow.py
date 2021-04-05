@@ -217,6 +217,11 @@ class Ui_MainWindow(object):
 
         self.formLayout_3.setLayout(1, QFormLayout.FieldRole, self.horizontalLayout_8)
 
+        self.checkBox_banners = QCheckBox(self.groupBox_cfg_batches)
+        self.checkBox_banners.setObjectName(u"checkBox_banners")
+
+        self.formLayout_3.setWidget(2, QFormLayout.LabelRole, self.checkBox_banners)
+
 
         self.horizontalLayout_config.addWidget(self.groupBox_cfg_batches)
 
@@ -345,7 +350,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep Ver.1.2", None))
         self.groupBox_cfg_lang.setTitle(QCoreApplication.translate("MainWindow", u"Language", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Translate to", None))
         self.checkBox_use_glossary.setText(QCoreApplication.translate("MainWindow", u"Use a glossary", None))
@@ -378,6 +383,7 @@ class Ui_MainWindow(object):
         self.pushButton_reset_max_batches.setToolTip(QCoreApplication.translate("MainWindow", u"Restore default", None))
 #endif // QT_CONFIG(tooltip)
         self.pushButton_reset_max_batches.setText("")
+        self.checkBox_banners.setText(QCoreApplication.translate("MainWindow", u"Close banners", None))
         self.pushButton_new_file.setText(QCoreApplication.translate("MainWindow", u"Add File", None))
         self.pushButton_save_file_glossary.setText(QCoreApplication.translate("MainWindow", u"Save File With Glossary", None))
         self.pushButton_cfg_save.setText(QCoreApplication.translate("MainWindow", u"Save Configuration", None))

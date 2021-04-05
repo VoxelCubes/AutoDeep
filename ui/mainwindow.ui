@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Auto Deep</string>
+   <string>Auto Deep Ver.1.2</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,1,0,0">
@@ -296,6 +296,13 @@
             </widget>
            </item>
           </layout>
+         </item>
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="checkBox_banners">
+           <property name="text">
+            <string>Close banners</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

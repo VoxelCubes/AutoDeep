@@ -364,6 +364,7 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
                 "translate_to"                : "en",
                 "glossary"                    : "",
                 "use_glossary"                : False,
+                "close_banners"               : True,
                 "max_characters_per_batch"    : 4990,
                 "max_batches_per_session"     : 20,
                 "deepl_wait_time_per_char_ms" : 4,
@@ -387,6 +388,7 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
             self.glossary_path = Path(config["glossary"])
             self.label_glossary.setText(self.glossary_path.name)
         self.checkBox_use_glossary.setChecked(config["use_glossary"])
+        self.checkBox_banners.setChecked(config["close_banners"])
 
         # Remember values if this was the default config
         if loading_default:
@@ -399,6 +401,7 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
 
     def read_config_from_widgets(self):
         return {"use_glossary"                : self.checkBox_use_glossary.isChecked(),
+                "close_banners"               : self.checkBox_banners.isChecked(),
                 "glossary"                    : str(self.glossary_path),
                 "translate_to"                : self.comboBox.currentLinkedData(),
                 "deepl_min_wait_time_s"       : self.doubleSpinBox_min_wait.value(),
