@@ -66,7 +66,7 @@ class Worker(Qc.QObject):
                 break
 
             try:
-                self.deepl = deepL_selenium.SeleniumDeepL(driver_path=".\chromedriver")
+                self.deepl = deepL_selenium.SeleniumDeepL(driver_path=".\\chromedriver")
             except Exception as e:
                 # Catch missing chrome driver
                 # self.error.emit("Chromedriver likely outdated or missing!")

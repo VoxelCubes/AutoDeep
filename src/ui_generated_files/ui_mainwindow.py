@@ -345,7 +345,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deepl", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep", None))
         self.groupBox_cfg_lang.setTitle(QCoreApplication.translate("MainWindow", u"Language", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Translate to", None))
         self.checkBox_use_glossary.setText(QCoreApplication.translate("MainWindow", u"Use a glossary", None))

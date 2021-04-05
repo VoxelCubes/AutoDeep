@@ -69,6 +69,15 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         """
         Remove the cookie banner to prevent it from interfering.
         """
+        button_css = "button.dl_cookieBanner--buttonClose"
+        button = self.driver.find_element_by_css_selector(button_css)
+        return button
+
+
+    def get_cookie_button_gdpr(self):
+        """
+        Remove the cookie banner to prevent it from interfering.
+        """
         button_css = "button.dl_cookieBanner--buttonSelected"
         button = self.driver.find_element_by_css_selector(button_css)
         return button
@@ -82,7 +91,7 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         button = self.get_translation_copy_button()
         self.scroll_to_element(button, sleep_before_click_to_clipboard)
         button.click()
-        self.sleep(1)
+        self.scroll_to_element(button, 1)
         # Click a second time to fool bot detection
         button.click()
         self.sleep(1)
@@ -117,10 +126,20 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
             self.set_url()
             self.load_url()
 
-        # Get rid of banner
-        button = self.get_cookie_button()
+        # Get rid of banner. Attempt to remove the gdpr banner, then the simple banner.
+        # Carry on if both fail.
+        try:
+            button = self.get_cookie_button_gdpr()
+            button.click()
+        except Exception:
+            try:
+                button = self.get_cookie_button()
+                button.click()
+            except Exception:
+                pass
+
         self.sleep(1)
-        button.click()
+
 
         # Do translation
         try:
