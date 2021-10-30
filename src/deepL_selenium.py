@@ -60,7 +60,8 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         When text is translated, we get it back by clicking on the "Copy to clipboard" button.
         This function gets that button.
         """
-        button_css = "div.lmt__target_toolbar__copy button"
+        # button_css = "div.lmt__target_toolbar__copy button"
+        button_css = "div.lmt__target_toolbar__copy_container button"
         button = self.driver.find_element_by_css_selector(button_css)
         return button
 

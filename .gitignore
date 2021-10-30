@@ -4,6 +4,7 @@ __pycache__
 build/
 dist/
 venv/
+nuitka_build/
 
 *.txt
 

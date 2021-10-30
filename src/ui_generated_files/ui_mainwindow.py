@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.0.1
+## Created by: Qt User Interface Compiler version 6.0.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -350,7 +350,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep Ver.1.2", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep Ver.1.3", None))
         self.groupBox_cfg_lang.setTitle(QCoreApplication.translate("MainWindow", u"Language", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Translate to", None))
         self.checkBox_use_glossary.setText(QCoreApplication.translate("MainWindow", u"Use a glossary", None))

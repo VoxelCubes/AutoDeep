@@ -2,6 +2,7 @@ import os
 import PySide6.QtCore as Qc
 from PySide6.QtCore import Signal, Slot
 
+from helpers import show_critical, show_warning, show_info
 import deepL_selenium
 import helpers as hp
 
@@ -73,7 +74,7 @@ class Worker(Qc.QObject):
                 # self.error.emit("Chromedriver likely outdated or missing!")
                 self.chrome_driver_error.emit()
                 self.halted = True
-                print(e)
+                self.error.emit(str(e))
                 break
 
             self.deepl.progress_report.connect(self.forward_webdriver_msg)  # Listen for progress
