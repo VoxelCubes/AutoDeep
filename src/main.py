@@ -52,4 +52,4 @@ if __name__ == "__main__":
     app.setFont(Qg.QFont("segoe", 11))
     window = MainWindow()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
