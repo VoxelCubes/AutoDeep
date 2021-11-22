@@ -21,7 +21,11 @@ import trie
 def super_quick_replace(workbook, in_text):
     # Helper functions
     def parse_term(sheet, x, y, target_dict, prefix="", suffix=" "):
-        replacement_term = sheet.iat[y, x][1:] + suffix
+        cell_text = sheet.iat[y, x]
+        # Allow padding to protect trailing whitespace.
+        if cell_text.startswith("/") and cell_text.endswith("/"):
+            cell_text = cell_text[1:-1]
+        replacement_term = cell_text[1:] + suffix
         # Grab jp replacement if available
         if isinstance(sheet.iat[y, x - 1], str):
             original_term = sheet.iat[y, x - 1].replace(r'\+', '+')  # Spreadsheets trigger formula stuff with a +
@@ -42,10 +46,6 @@ def super_quick_replace(workbook, in_text):
                 for instance in nok.findall(line):  # kill 万
                     line = line.replace(instance, instance[1:])
 
-                # Run unoptimized regex to prevent individual regex from interfering with each other.
-                if regex_terms:
-                    for term in regex_terms:
-                        line = re.sub(term, regex_terms[term], line)
                 # Use trie structure with the rest of the terms.
                 if terms:
                     line = terms_re.sub(lambda match: terms[match.group()], line)
@@ -57,11 +57,16 @@ def super_quick_replace(workbook, in_text):
 
                     line = line.replace(instance, titles[instance[:-1]] + instance[-1])
 
-                if post_terms:
-                    line = post_terms_re.sub(lambda match: post_terms[match.group()], line)
+                if no_suffix:
+                    line = no_suffix_re.sub(lambda match: no_suffix[match.group()], line)
+
+                # Run unoptimized regex to prevent individual regex from interfering with each other.
+                if regex_terms:
+                    for term, pattern in regex_terms.items():
+                        line = re.sub(term, regex_terms[term], line)
 
                 if post_terms:
-                    line = no_suffix_re.sub(lambda match: no_suffix[match.group()], line)
+                    line = post_terms_re.sub(lambda match: post_terms[match.group()], line)
 
                 out_text[i] = line
 
@@ -88,10 +93,14 @@ def super_quick_replace(workbook, in_text):
                 if isinstance(cell, str):
                     if not cell.strip():
                         continue
+
+                    # Allow padding to protect trailing whitespace.
+                    if cell.startswith("/") and cell.endswith("/"):
+                        cell = cell[1:-1]
                     # Find en terms
                     if cell[0] == '#':
                         parse_term(sheet, x, y, terms)
-                    # check if it's an honorific. These only match if a terms was recognized before it (identified by the trailing space).
+                    # check if it's an honorific. Must be preceded by a space.
                     elif cell[0] == '$':
                         parse_term(sheet, x, y, honorifics, prefix=" ")
                     # check if it's a title. These only match if followed by [A-Z]
@@ -104,7 +113,7 @@ def super_quick_replace(workbook, in_text):
                     elif cell[0] == ':':
                         parse_term(sheet, x, y, regex_terms, suffix="")
                     # check if it's a suffix-less
-                    elif cell[0] == '%':
+                    elif cell[0] == '|':
                         parse_term(sheet, x, y, no_suffix, suffix="")
 
 
