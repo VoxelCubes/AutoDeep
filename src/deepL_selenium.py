@@ -203,4 +203,4 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
 
 
     def get_translated_corpus(self):
-        return "".join(self.translations)
+        return "\n".join(self.translations)
