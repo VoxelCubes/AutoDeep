@@ -1,0 +1,11 @@
+{
+    "translate_to": "en",
+    "glossary": "",
+    "use_glossary": false,
+    "close_banners": true,
+    "max_characters_per_batch": 4990,
+    "max_batches_per_session": 20,
+    "deepl_wait_time_per_char_ms": 4,
+    "deepl_min_wait_time_s": 7,
+    "deepl_wait_between_batches_s": 3
+}

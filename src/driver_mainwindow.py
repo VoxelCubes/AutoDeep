@@ -5,7 +5,7 @@ from math import floor
 import PySide6.QtCore as Qc
 import PySide6.QtWidgets as Qw
 from PySide6.QtCore import Slot, Signal
-from pathlib2 import Path
+from pathlib import Path
 
 import deepl_worker
 from helpers import show_critical, show_warning, show_info
@@ -371,8 +371,14 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
                 "deepl_min_wait_time_s"       : 7,
                 "deepl_wait_between_batches_s": 3
             }
+            if os.name == "posix":
+                from xdg import XDG_CONFIG_HOME
+                config_path = Path(XDG_CONFIG_HOME, "autodeep", "default_config.json")
+                os.makedirs(XDG_CONFIG_HOME / "autodeep", exist_ok=True)
+            else:
+                config_path = ".\\default_config.json"
             try:
-                with open(".\\default_config.json", 'w', encoding="utf-8") as outfile:
+                with open(config_path, 'w', encoding="utf-8") as outfile:
                     json.dump(config, outfile, indent=4, ensure_ascii=False)
             except OSError:
                 show_critical(self, "ERROR", "Could not restore configuration!")
