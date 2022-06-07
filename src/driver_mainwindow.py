@@ -349,13 +349,7 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
         @param path: path to a config.json
         """
         loading_default = False
-        default_path = Path(os.getcwd()) / "default_config.json"
 
-        if path is None:
-            loading_default = True  # set flag
-            path = default_path
-
-        config = {}
         try:
             with open(path) as config_file:
                 config = json.load(config_file)
@@ -374,8 +368,16 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
                 "deepl_wait_between_batches_s": 3,
                 "deepl_copy_button"           : "div.lmt__target_toolbar__copy_container button"
             }
+
+            if os.name == "posix":
+                from xdg import XDG_CONFIG_HOME
+                config_path = Path(XDG_CONFIG_HOME, "autodeep", "default_config.json")
+                os.makedirs(XDG_CONFIG_HOME / "autodeep", exist_ok=True)
+            else:
+                config_path = ".\\default_config.json"
+
             try:
-                with open(default_path, 'w', encoding="utf-8") as outfile:
+                with open(config_path, 'w', encoding="utf-8") as outfile:
                     json.dump(config, outfile, indent=4, ensure_ascii=False)
             except OSError:
                 show_critical(self, "ERROR", "Could not restore configuration!")
