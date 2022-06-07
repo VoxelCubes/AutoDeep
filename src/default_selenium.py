@@ -60,7 +60,7 @@ class SeleniumDefault:
         @param sleep: int - number of waiting seconds after scrolling. Default is 1.
         """
         y = element.location['y']
-        y = y - 200
+        y = y - 600
         self.driver.execute_script(f"window.scrollTo(0, {y})")
         self.sleep(sleep)
 

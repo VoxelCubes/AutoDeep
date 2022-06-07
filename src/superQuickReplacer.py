@@ -51,7 +51,7 @@ def super_quick_replace(workbook, in_text):
                     line = terms_re.sub(lambda match: terms[match.group()], line)
 
                 if honorifics:
-                    line = honorifics_re.sub(lambda match: honorifics[match.group()], line)
+                    line = honorifics_re.sub(lambda match: match.group(1) + honorifics[match.group(2)], line)
 
                 for instance in titles_re.findall(line):  # only match if followed by A-Z
 
@@ -102,7 +102,7 @@ def super_quick_replace(workbook, in_text):
                         parse_term(sheet, x, y, terms)
                     # check if it's an honorific. Must be preceded by a space.
                     elif cell[0] == '$':
-                        parse_term(sheet, x, y, honorifics, prefix=" ")
+                        parse_term(sheet, x, y, honorifics)
                     # check if it's a title. These only match if followed by [A-Z]
                     elif cell[0] == '!':
                         parse_term(sheet, x, y, titles)
@@ -122,7 +122,7 @@ Beginning replacement on {len(in_text)} lines:""")
 
     nok = re.compile(r"万\d{4}")  # remove 10,000 separator symbol when possible
     terms_re = trie.trie_regex_from_words(terms.keys())
-    honorifics_re = trie.trie_regex_from_words(honorifics.keys())
+    honorifics_re = trie.trie_regex_from_words(honorifics.keys(), prefix=r"([a-z]) (", suffix=")")
     if titles:
         titles_re = re.compile("|".join(titles.keys()) + "[A-Z]")
     else:
