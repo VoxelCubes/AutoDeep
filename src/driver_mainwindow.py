@@ -5,7 +5,7 @@ from math import floor
 import PySide6.QtCore as Qc
 import PySide6.QtWidgets as Qw
 from PySide6.QtCore import Slot, Signal
-from pathlib2 import Path
+from pathlib import Path
 
 import deepl_worker
 from helpers import show_critical, show_warning, show_info
@@ -54,6 +54,7 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
         self.tableWidget.setColumnWidth(0, 300)
         self.tableWidget.setColumnWidth(1, 300)
         self.tableWidget.setFocusPolicy(Qc.Qt.NoFocus)
+        self.label_deepl_copy_button.hide()
         # Connect Slots
         self.pushButton_reset_min_wait.clicked.connect(self.reset_min_wait)
         self.pushButton_reset_char_wait.clicked.connect(self.reset_char_wait)
@@ -348,10 +349,11 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
         @param path: path to a config.json
         """
         loading_default = False
+        default_path = Path(os.getcwd()) / "default_config.json"
 
         if path is None:
             loading_default = True  # set flag
-            path = ".\\default_config.json"
+            path = default_path
 
         config = {}
         try:
@@ -369,10 +371,11 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
                 "max_batches_per_session"     : 20,
                 "deepl_wait_time_per_char_ms" : 4,
                 "deepl_min_wait_time_s"       : 7,
-                "deepl_wait_between_batches_s": 3
+                "deepl_wait_between_batches_s": 3,
+                "deepl_copy_button"           : "div.lmt__target_toolbar__copy_container button"
             }
             try:
-                with open(".\\default_config.json", 'w', encoding="utf-8") as outfile:
+                with open(default_path, 'w', encoding="utf-8") as outfile:
                     json.dump(config, outfile, indent=4, ensure_ascii=False)
             except OSError:
                 show_critical(self, "ERROR", "Could not restore configuration!")
@@ -384,6 +387,7 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
         self.doubleSpinBox_batch_time.setValue(config["deepl_wait_between_batches_s"])
         self.spinBox_max_chars.setValue(config["max_characters_per_batch"])
         self.spinBox_max_batches.setValue(config["max_batches_per_session"])
+        self.label_deepl_copy_button.setText(config["deepl_copy_button"])
         if config["glossary"]:
             self.glossary_path = Path(config["glossary"])
             self.label_glossary.setText(self.glossary_path.name)
@@ -408,7 +412,8 @@ class MainWindow(Qw.QMainWindow, Ui_MainWindow):
                 "deepl_wait_time_per_char_ms" : self.doubleSpinBox_char_wait.value(),
                 "deepl_wait_between_batches_s": self.doubleSpinBox_batch_time.value(),
                 "max_characters_per_batch"    : self.spinBox_max_chars.value(),
-                "max_batches_per_session"     : self.spinBox_max_batches.value()
+                "max_batches_per_session"     : self.spinBox_max_batches.value(),
+                "deepl_copy_button"           : self.label_deepl_copy_button.text()
                 }
 
 

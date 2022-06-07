@@ -308,6 +308,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.label_time)
 
+        self.label_deepl_copy_button = QLabel(self.centralwidget)
+        self.label_deepl_copy_button.setObjectName(u"label_deepl_copy_button")
+
+        self.horizontalLayout_3.addWidget(self.label_deepl_copy_button)
+
         self.pushButton_clear = QPushButton(self.centralwidget)
         self.pushButton_clear.setObjectName(u"pushButton_clear")
 
@@ -350,7 +355,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep Ver.1.4", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Auto Deep Ver.1.5", None))
         self.groupBox_cfg_lang.setTitle(QCoreApplication.translate("MainWindow", u"Language", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Translate to", None))
         self.checkBox_use_glossary.setText(QCoreApplication.translate("MainWindow", u"Use a glossary", None))
@@ -400,6 +405,7 @@ class Ui_MainWindow(object):
         self.pushButton_refresh_estimate.setText("")
         self.label.setText(QCoreApplication.translate("MainWindow", u"Time Estimate:", None))
         self.label_time.setText("")
+        self.label_deepl_copy_button.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButton_clear.setText(QCoreApplication.translate("MainWindow", u"Clear Selection", None))
         self.pushButton_abort.setText(QCoreApplication.translate("MainWindow", u"Abort", None))
         self.pushButton_start.setText(QCoreApplication.translate("MainWindow", u"Start", None))

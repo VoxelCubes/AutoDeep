@@ -14,9 +14,10 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
     halted = False
 
 
-    def __init__(self, destination_language="en", **kwargs):
+    def __init__(self, deepl_copy_button, destination_language="en", **kwargs):
         """
         In addition the SeleniumDefault object, we can select the translation language.
+        @param deepl_copy_button: str - the css selector to use.
         @param driver_path: str - path to the selenium driver (mandatory)
         @param destination_language: str
         """
@@ -29,6 +30,7 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
 
         self.url_template = "https://www.deepl.com/<lang>/translator"
         self.destination_language = destination_language
+        self.deepl_copy_button = deepl_copy_button
 
         self.set_url()
         self.load_url()
@@ -61,7 +63,7 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         This function gets that button.
         """
         # button_css = "div.lmt__target_toolbar__copy button"
-        button_css = "div.lmt__target_toolbar__copy_container button"
+        button_css = self.deepl_copy_button  # "div.lmt__target_toolbar__copy_container button"
         button = self.driver.find_element_by_css_selector(button_css)
         return button
 

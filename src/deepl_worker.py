@@ -1,6 +1,7 @@
 import os
 import PySide6.QtCore as Qc
 from PySide6.QtCore import Signal, Slot
+from pathlib import Path
 
 from helpers import show_critical, show_warning, show_info
 import deepL_selenium
