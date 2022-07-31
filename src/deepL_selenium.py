@@ -1,3 +1,5 @@
+import os
+
 import PySide6.QtCore as Qc
 import clipboard
 from PySide6.QtCore import Signal
@@ -14,9 +16,10 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
     halted = False
 
 
-    def __init__(self, destination_language="en", **kwargs):
+    def __init__(self, deepl_copy_button, destination_language="en", **kwargs):
         """
         In addition the SeleniumDefault object, we can select the translation language.
+        @param deepl_copy_button: str - the css selector to use.
         @param driver_path: str - path to the selenium driver (mandatory)
         @param destination_language: str
         """
@@ -29,6 +32,7 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
 
         self.url_template = "https://www.deepl.com/<lang>/translator"
         self.destination_language = destination_language
+        self.deepl_copy_button = deepl_copy_button
 
         self.set_url()
         self.load_url()
@@ -61,7 +65,7 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         This function gets that button.
         """
         # button_css = "div.lmt__target_toolbar__copy button"
-        button_css = "div.lmt__target_toolbar__copy_container button"
+        button_css = self.deepl_copy_button  # "div.lmt__target_toolbar__copy_container button"
         button = self.driver.find_element_by_css_selector(button_css)
         return button
 
@@ -93,20 +97,42 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
         return button
 
 
+    def read_output(self):
+        textarea = self.get_output_textarea()
+        return textarea.get_attribute("value")
+
+    def get_output_textarea(self):
+        output_box = self.driver.find_elements_by_class_name(
+            "lmt__inner_textarea_container"
+        )[1]
+        return output_box.find_element_by_tag_name("textarea")
+
+
     def get_translation(self, sleep_before_click_to_clipboard=2):
         """
         Click on the get to clipboard button of deepL and then return the results.
         As page might be long depending on text size, we scroll to the button so that we can click on it.
         """
-        button = self.get_translation_copy_button()
+        """
+        button = self.get_translation_copy_button()  # Spam the shit out of this re-declaration because it goes stale after every action.
         self.scroll_to_element(button, sleep_before_click_to_clipboard)
-        button.click()
+        try:
+            button = self.get_translation_copy_button()
+            button.click()
+        except:
+            # Yes, try twice, regardless. The first one doesn't matter.
+            print("First click failed!")
+        button = self.get_translation_copy_button()
         self.scroll_to_element(button, 1)
         # Click a second time to fool bot detection
+        button = self.get_translation_copy_button()
         button.click()
         self.sleep(1)
         content = clipboard.paste()
         return content
+        """
+        return self.read_output()
+
 
 
     def run_translation(self, corpus_batch, destination_language,
@@ -203,4 +229,4 @@ class SeleniumDeepL(SeleniumDefault, Qc.QObject):
 
 
     def get_translated_corpus(self):
-        return "".join(self.translations)
+        return "\n".join(self.translations)

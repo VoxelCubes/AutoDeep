@@ -1,6 +1,7 @@
 import pandas as pd
 
 import superQuickReplacer as spqr
+from pathlib import Path
 
 
 
@@ -30,7 +31,7 @@ class TextFile:
 
 
     def apply_glossary(self, config):
-        if config["use_glossary"]:
+        if config["use_glossary"] and Path(config["glossary"]).is_file():
             # OSError caught during creation
             workbook = pd.read_excel(config["glossary"], sheet_name=None)
             self.lines = spqr.super_quick_replace(workbook, self.lines_raw)

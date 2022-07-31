@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Auto Deep Ver.1.4</string>
+   <string>Auto Deep Ver.1.5</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,1,0,0">
@@ -402,7 +402,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0,0,0,0">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
         <property name="spacing">
@@ -438,6 +438,13 @@
        <widget class="QLabel" name="label_time">
         <property name="text">
          <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_deepl_copy_button">
+        <property name="text">
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>

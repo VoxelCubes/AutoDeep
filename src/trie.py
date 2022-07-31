@@ -69,9 +69,9 @@ class Trie:
         return self._pattern(self.dump())
 
 
-def trie_regex_from_words(words):
+def trie_regex_from_words(words, prefix='', suffix=''):
     trie = Trie()
     for word in words:
         trie.add(word)
     # print(trie.pattern()) 30 min claim
-    return re.compile(trie.pattern(), re.IGNORECASE)
+    return re.compile(prefix + trie.pattern() + suffix, re.IGNORECASE)

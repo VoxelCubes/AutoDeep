@@ -1,6 +1,7 @@
 import os
 import PySide6.QtCore as Qc
 from PySide6.QtCore import Signal, Slot
+from pathlib import Path
 
 from helpers import show_critical, show_warning, show_info
 import deepL_selenium
@@ -28,6 +29,7 @@ class Worker(Qc.QObject):
         self.batch_time = config["deepl_wait_between_batches_s"]
         self.max_chars = config["max_characters_per_batch"]
         self.max_batches = config["max_batches_per_session"]
+        self.deepl_copy_button = config["deepl_copy_button"]
 
 
     @Slot(int, int, str)
@@ -61,17 +63,20 @@ class Worker(Qc.QObject):
                 break
 
             self.progress_message.emit(f"Opening chrome driver.")
-            if False and not os.path.isfile(".\\chromedriver.exe"):
+            driver_path = "./chromedriver" if os.name == "posix" else ".\\chromedriver.exe"
+            if False and not os.path.isfile(driver_path):
                 # self.error.emit("No chromedriver found!")
+                print("No chrome driver found! Expected to find it in ", os.getcwd())
                 self.chrome_driver_error.emit()
                 self.halted = True
                 break
 
             try:
-                self.deepl = deepL_selenium.SeleniumDeepL(driver_path=".\\chromedriver")
+                self.deepl = deepL_selenium.SeleniumDeepL(self.deepl_copy_button, driver_path)
             except Exception as e:
                 # Catch missing chrome driver
                 # self.error.emit("Chromedriver likely outdated or missing!")
+                print("Chrome driver likely outdated or missing!")
                 self.chrome_driver_error.emit()
                 self.halted = True
                 self.error.emit(str(e))
