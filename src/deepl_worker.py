@@ -64,7 +64,7 @@ class Worker(Qc.QObject):
 
             self.progress_message.emit(f"Opening chrome driver.")
             driver_path = "./chromedriver" if os.name == "posix" else ".\\chromedriver.exe"
-            if False and not os.path.isfile(driver_path):
+            if not os.path.isfile(driver_path):
                 # self.error.emit("No chromedriver found!")
                 print("No chrome driver found! Expected to find it in ", os.getcwd())
                 self.chrome_driver_error.emit()
@@ -72,11 +72,11 @@ class Worker(Qc.QObject):
                 break
 
             try:
-                self.deepl = deepL_selenium.SeleniumDeepL(self.deepl_copy_button, driver_path)
+                self.deepl = deepL_selenium.SeleniumDeepL(self.deepl_copy_button, driver_path=str(Path(driver_path).absolute()))
             except Exception as e:
                 # Catch missing chrome driver
                 # self.error.emit("Chromedriver likely outdated or missing!")
-                print("Chrome driver likely outdated or missing!")
+                print("Chrome driver likely outdated or missing!", f"Tried finding {Path(driver_path).absolute()}")
                 self.chrome_driver_error.emit()
                 self.halted = True
                 self.error.emit(str(e))

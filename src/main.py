@@ -48,7 +48,8 @@ if __name__ == "__main__":
     app.setStyleSheet("""
         QToolTip { color: #ffffff; background-color: grey; border: 1px solid white; }
         """)
-    app.setPalette(DarkPalette())
+    if os.name != "posix":
+        app.setPalette(DarkPalette())
     app.setFont(Qg.QFont("segoe", 11))
     window = MainWindow()
     window.show()
